@@ -44,23 +44,27 @@ public class RepoService {
     public static ArrayList<Repos>processReposResults(Response response){
         ArrayList<Repos> reposes = new ArrayList<>();
         try {
-            String jsonData = response.body().toString();
+            String jsonData = response.body().string();
             if (response.isSuccessful()){
-                JSONArray gitArray = new JSONArray();
-                JSONObject gitObject = new JSONObject(jsonData);
+                JSONArray gitArray = new JSONArray(jsonData);
                 for (int i = 0; i < gitArray.length(); i++){
+                    JSONObject gitObject =gitArray.getJSONObject(i);
                     String projectName = gitObject.getString("name");
                     String watchers = gitObject.getString("watchers");
                     String forks = gitObject.getString("forks_count");
                     String language = gitObject.getString("language");
-                    JSONObject ownerObject = new JSONObject("owner");
+                    String description = gitObject.getString("description");
+                    String projectUrl = gitObject.getString("html_url");
+                    JSONObject ownerObject = gitObject.getJSONObject("owner");
                     String profpic = ownerObject.getString("avatar_url");
 
-                    Repos repos = new Repos(projectName, watchers, forks, language, profpic);
+                    Repos repos = new Repos(projectName, watchers, forks, language, profpic, description, projectUrl);
                     reposes.add(repos);
                 }
             }
         } catch (JSONException e){
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return reposes;

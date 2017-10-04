@@ -32,9 +32,13 @@ public class MainActivity extends AppCompatActivity{
     public static final String TAG = MainActivity.class.getSimpleName();
     //@Bind(R.id.myList)ListView mListView;
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
+    @Bind(R.id.recyclerView1)RecyclerView belowRecycler;
     private GithubListAdapter mAdapter;
+    private ReposListAdapter mAdapter1;
 
     public ArrayList<Github> mGithub = new ArrayList<>();
+    public  ArrayList<Repos> mRepos = new ArrayList<>();
+    RepoService repoService = new RepoService();
     GitService gitService = new GitService();
 
     @Override
@@ -50,7 +54,7 @@ public class MainActivity extends AppCompatActivity{
             }
 
             @Override
-            public void onResponse(Call call, Response response) throws IOException {
+            public void onResponse(Call call, final Response response) throws IOException {
                 // String jsonData = response.body().string();
                 //  Log.v(TAG, jsonData);
                 mGithub = GitService.processResults(response);
@@ -64,7 +68,31 @@ public class MainActivity extends AppCompatActivity{
                                 new LinearLayoutManager(MainActivity.this);
                         mRecyclerView.setLayoutManager(layoutManager);
                         mRecyclerView.setHasFixedSize(true);
+                    }
+                });
+            }
+        });
 
+        RepoService.myRepos(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.wtf("FAILED", "hAS fAILED");
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                mRepos = RepoService.processReposResults(response);
+
+                MainActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mAdapter1 = new ReposListAdapter(getApplicationContext(), mRepos);
+                        belowRecycler.setAdapter(mAdapter1);
+                        RecyclerView.LayoutManager layoutManager1 =
+                                new LinearLayoutManager(MainActivity.this);
+                        belowRecycler.setLayoutManager(layoutManager1);
+                        belowRecycler.setHasFixedSize(true);
                     }
                 });
             }
