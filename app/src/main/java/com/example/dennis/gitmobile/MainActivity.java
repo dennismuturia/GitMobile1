@@ -1,11 +1,15 @@
 package com.example.dennis.gitmobile;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
+import android.view.MenuInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -16,6 +20,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -28,11 +33,13 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     public static final String TAG = MainActivity.class.getSimpleName();
     //@Bind(R.id.myList)ListView mListView;
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
     @Bind(R.id.recyclerView1)RecyclerView belowRecycler;
+    @Bind(R.id.btn) Button mButton;
+   // @Bind(R.id.searchButton) Button searchButton;
     private GithubListAdapter mAdapter;
     private ReposListAdapter mAdapter1;
 
@@ -46,6 +53,8 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        mButton.setOnClickListener(this);
         GitService.myUser(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -92,10 +101,49 @@ public class MainActivity extends AppCompatActivity{
                         RecyclerView.LayoutManager layoutManager1 =
                                 new LinearLayoutManager(MainActivity.this);
                         belowRecycler.setLayoutManager(layoutManager1);
-                        belowRecycler.setHasFixedSize(true);
+                        belowRecycler.setHasFixedSize(false);
                     }
                 });
             }
         });
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view == mButton) {
+            Intent intent = new Intent(this, CreateARepo.class);
+            startActivity(intent);
+        }
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_search, menu);
+        MenuItem menuItem = menu.findItem(R.id.searchRepos);
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Intent intent = new Intent(MainActivity.this, GithubUsers.class);
+                intent.putExtra(String.valueOf(searchView), "User");
+                startActivity(intent);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+        menuInflater.inflate(R.menu.main, menu);
+        return  super.onCreateOptionsMenu(menu);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.searchRepos) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

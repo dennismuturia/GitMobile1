@@ -14,4 +14,6 @@ public class Constants {
     public static final String GITHUB_CLIENTID_NAME = "client_id";
     public static final String GITHUB_CLIENT_SECRET_NAME = "client_secret";
     public static final String GITHUB_REPOS_URL = "https://api.github.com/user/repos";
+    public static final String GITHUB_SEARCH_QUERY = "q";
+    public static final String GITHUB_SEARCH_USERS_URL = "https://api.github.com/search/users";
 }
