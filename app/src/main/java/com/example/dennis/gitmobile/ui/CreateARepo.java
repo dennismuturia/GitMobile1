@@ -1,10 +1,14 @@
-package com.example.dennis.gitmobile;
+package com.example.dennis.gitmobile.ui;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.example.dennis.gitmobile.R;
+import com.example.dennis.gitmobile.service.CreateARepoService;
 
 import java.io.IOException;
 
@@ -12,7 +16,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.Request;
 import okhttp3.Response;
 
 public class CreateARepo extends AppCompatActivity implements View.OnClickListener {
@@ -41,11 +44,14 @@ public class CreateARepo extends AppCompatActivity implements View.OnClickListen
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         }
     }
 
     private void postNewRepo(String name, String description, String privacy) throws IOException {
-        final  CreateARepoService createARepoService = new CreateARepoService();
+        final CreateARepoService createARepoService = new CreateARepoService();
         createARepoService.createARepo(name, description, privacy, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

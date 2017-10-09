@@ -1,4 +1,4 @@
-package com.example.dennis.gitmobile;
+package com.example.dennis.gitmobile.model;
 
 /**
  * Created by dennis on 10/3/17.

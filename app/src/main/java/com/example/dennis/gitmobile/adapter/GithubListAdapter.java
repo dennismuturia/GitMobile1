@@ -1,4 +1,4 @@
-package com.example.dennis.gitmobile;
+package com.example.dennis.gitmobile.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.dennis.gitmobile.R;
+import com.example.dennis.gitmobile.model.Github;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -53,6 +55,7 @@ public class GithubListAdapter extends RecyclerView.Adapter<GithubListAdapter.Gi
         @Bind(R.id.following) TextView mFollowing ;
         @Bind(R.id.myName)TextView mUserName;
         @Bind(R.id.myBio) TextView mBio;
+        @Bind(R.id.user_repos)TextView UserRepos;
         private Context mContext;
 
 
@@ -68,7 +71,8 @@ public class GithubListAdapter extends RecyclerView.Adapter<GithubListAdapter.Gi
             mFollowersTextView.setText("Followers "+ github.getFollowing());
             mFollowing.setText("Following "+ github.getFollowing());
             mUserName.setText(github.getUserName());
-            mBio.setText("Bio "+github.getBio());
+            mBio.setText("Bio: "+github.getBio());
+            UserRepos.setText("Total_Repositories: " + github.getPublic_repos());
         }
     }
 }

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/myRelativeLayout"
+            android:padding="10sp">
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:id="@+id/searchUserImage"
+                android:layout_marginLeft="20dp">
+            </ImageView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/searchUserName"
+                android:text="UserName"
+                android:textSize="30dp"
+                android:textColor="@color/lightblue"
+                android:layout_marginStart="25dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignStart="@+id/searchUserRepos">
+
+            </TextView>
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="175dp"
+                android:text="Repos"
+                android:background="@color/colorPrimary"
+                android:layout_below="@+id/searchUserName"
+                android:id="@+id/searchUserRepos">
+
+            </Button>
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="280dp"
+                android:text="View user"
+                android:background="@color/Green"
+                android:layout_below="@+id/searchUserName"
+                android:id="@+id/searchUserUrl"
+                >
+            </Button>
+        </RelativeLayout>
+
+</RelativeLayout>

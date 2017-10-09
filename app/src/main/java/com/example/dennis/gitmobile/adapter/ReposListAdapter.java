@@ -1,13 +1,18 @@
-package com.example.dennis.gitmobile;
+package com.example.dennis.gitmobile.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.dennis.gitmobile.R;
+import com.example.dennis.gitmobile.model.Repos;
+import com.example.dennis.gitmobile.ui.RepoWebViewActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -22,6 +27,7 @@ import butterknife.ButterKnife;
 public class ReposListAdapter extends RecyclerView.Adapter<ReposListAdapter.RepoViewHolder>{
     private ArrayList<Repos> mRepos = new ArrayList<>();
     private Context mContext;
+    private Repos repos;
 
     public ReposListAdapter(Context context, ArrayList<Repos> repos){
         mContext = context;
@@ -44,7 +50,11 @@ public class ReposListAdapter extends RecyclerView.Adapter<ReposListAdapter.Repo
     public int getItemCount() {
         return mRepos.size();
     }
-    public class RepoViewHolder extends RecyclerView.ViewHolder {
+
+
+    public class RepoViewHolder extends RecyclerView.ViewHolder{
+
+
         @Bind(R.id.myImage)
         ImageView mRepoImageView;
         @Bind(R.id.repoName)
@@ -53,6 +63,7 @@ public class ReposListAdapter extends RecyclerView.Adapter<ReposListAdapter.Repo
         @Bind(R.id.myLanguage) TextView mLanguage ;
         @Bind(R.id.myWatchers)TextView mWatchers;
         @Bind(R.id.myforks) TextView mForks;
+        @Bind(R.id.viewRepoButton)Button viewRepo;
         private Context mContext;
 
 
@@ -69,6 +80,16 @@ public class ReposListAdapter extends RecyclerView.Adapter<ReposListAdapter.Repo
             mLanguage.setText("Language: "+ repos.getLanguage());
             mWatchers.setText("Watchers: " + repos.getWatchers());
             mForks.setText("Forks: "+repos.getForks());
+            final String url = repos.getProjectUrl();
+
+            viewRepo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(mContext, RepoWebViewActivity.class);
+                    intent.putExtra("url", url);
+                    mContext.startActivity(intent);
+                }
+            });
         }
     }
 }

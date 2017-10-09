@@ -1,9 +1,7 @@
-package com.example.dennis.gitmobile;
+package com.example.dennis.gitmobile.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,18 +9,19 @@ import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.MenuInflater;
 import android.view.View;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
-import android.widget.TextView;
+
+import com.example.dennis.gitmobile.model.Repos;
+import com.example.dennis.gitmobile.service.GitService;
+import com.example.dennis.gitmobile.R;
+import com.example.dennis.gitmobile.adapter.GithubListAdapter;
+import com.example.dennis.gitmobile.adapter.ReposListAdapter;
+import com.example.dennis.gitmobile.model.Github;
+import com.example.dennis.gitmobile.service.RepoService;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,6 +41,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
    // @Bind(R.id.searchButton) Button searchButton;
     private GithubListAdapter mAdapter;
     private ReposListAdapter mAdapter1;
+
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
     public ArrayList<Github> mGithub = new ArrayList<>();
     public  ArrayList<Repos> mRepos = new ArrayList<>();
@@ -124,10 +126,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+                String User = query;
                 Intent intent = new Intent(MainActivity.this, GithubUsers.class);
-                intent.putExtra(String.valueOf(searchView), "User");
+                intent.putExtra("User", User);
                 startActivity(intent);
-                return false;
+                return true;
             }
 
             @Override

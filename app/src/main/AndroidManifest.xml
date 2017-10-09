@@ -5,13 +5,13 @@
     <application
         android:allowBackup="true"
         android:banner="@drawable/gitmobo"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/gitmobo"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:roundIcon="@drawable/gitmobo"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -20,9 +20,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CreateARepo">
+        <activity android:name=".ui.CreateARepo">
         </activity>
-        <activity android:name=".GithubUsers">
+        <activity android:name=".ui.GithubUsers">
+        </activity>
+        <activity android:name=".ui.ViewUser">
+        </activity>
+        <activity android:name=".ui.LoginActivity">
+        </activity>
+        <activity android:name=".ui.RepoWebViewActivity">
+        </activity>
+        <activity android:name=".ui.RepoUrlActivity">
+        </activity>
+        <activity android:name=".ui.PersonUserActivity">
         </activity>
     </application>
 

@@ -1,4 +1,7 @@
-package com.example.dennis.gitmobile;
+package com.example.dennis.gitmobile.service;
+
+import com.example.dennis.gitmobile.Constants;
+import com.example.dennis.gitmobile.model.Repos;
 
 import org.json.JSONArray;
 import org.json.JSONException;

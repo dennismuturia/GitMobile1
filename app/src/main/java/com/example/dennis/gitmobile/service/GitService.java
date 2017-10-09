@@ -1,4 +1,7 @@
-package com.example.dennis.gitmobile;
+package com.example.dennis.gitmobile.service;
+
+import com.example.dennis.gitmobile.Constants;
+import com.example.dennis.gitmobile.model.Github;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -60,7 +63,8 @@ public class GitService {
                 String privateRepos = gitJSON.getString("total_private_repos");
                 String followers = gitJSON.getString("followers");
                 String following = gitJSON.getString("following");
-                Github github = new Github(userName,bio,profPic,name,hireable,publicRepos,privateRepos,followers,following);
+                String public_repos =gitJSON.getString("public_repos");
+                Github github = new Github(userName,bio,profPic,name,hireable,publicRepos,privateRepos,followers,following, public_repos);
                 githubs.add(github);
                 //Log.v("BIO", bio);
             }
